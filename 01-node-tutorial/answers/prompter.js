@@ -22,15 +22,16 @@ const getBody = (req, callback) => {
 
 // here, you could declare one or more variables to store what comes back from the form.
 let item = "Enter something below.";
+let color = "black";
 
 // here, you can change the form below to modify the input fields and what is displayed.
 // This is just ordinary html with string interpolation.
 const form = () => {
   return `
-  <body>
+  <body style="background-color: ${color}">
   <p>${item}</p>
   <form method="POST">
-  <input name="item"></input>
+ <input name="color" placeholder="Enter background color"></input>
   <button type="submit">Submit</button>
   </form>
   </body>
@@ -48,6 +49,10 @@ const server = http.createServer((req, res) => {
         item = body["item"];
       } else {
         item = "Nothing was entered.";
+      }
+
+      if (body["color"]) {
+        color = body["color"];
       }
       // Your code changes would end here
       res.writeHead(303, {
