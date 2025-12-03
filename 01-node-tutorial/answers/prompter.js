@@ -1,3 +1,4 @@
+console.log("I am a live!");
 const http = require("http");
 var StringDecoder = require("string_decoder").StringDecoder;
 
@@ -63,6 +64,10 @@ const server = http.createServer((req, res) => {
   } else {
     res.end(form());
   }
+});
+
+server.on("request", (req) => {
+  console.log("event received: ", req.method, req.url);
 });
 
 server.listen(3000);
