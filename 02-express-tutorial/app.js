@@ -22,6 +22,10 @@ app.get("/api/products/:productID", (req, res) => {
   const singleProduct = products.find(
     (products) => products.id === Number(productID)
   );
+  if (!singleProduct) {
+    return res.status(404).send("Product does not exist");
+  }
+  console.log(singleProduct);
   res.json(singleProduct);
 });
 
