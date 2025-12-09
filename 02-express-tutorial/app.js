@@ -12,7 +12,11 @@ app.get("/api/products", (req, res) => {
     return { id, name, image };
   });
   res.json(newProducts);
-  // res.json({ message: "It worked!" });
+});
+
+app.get("/api/products/1", (req, res) => {
+  const singleProduct = products.find((products) => products.id === 1);
+  res.json(singleProduct);
 });
 
 app.listen(5003, (req, res) => {
