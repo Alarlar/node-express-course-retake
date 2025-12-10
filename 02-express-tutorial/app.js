@@ -25,8 +25,33 @@ app.get("/api/products/:productID", (req, res) => {
   if (!singleProduct) {
     return res.status(404).send("Product does not exist");
   }
-  console.log(singleProduct);
-  res.json(singleProduct);
+  // console.log(singleProduct);
+  return res.json(singleProduct);
+});
+
+// Route params
+app.get("/api/products/:productID/reviews/:reviewID", (req, res) => {
+  console.log(req.params);
+  res.send("hello");
+});
+
+// Query string params
+app.get("/api/v1/query", (req, res) => {
+  // console.log(req.query);
+  const { search, limit } = req.query;
+  let sortProducts = [...products];
+
+  if (search) {
+    sortProducts = sortProducts.filter((product) => {
+      return product.name.startsWith(search);
+    });
+  }
+
+  if (limit) {
+    sortProducts = sortProducts.slice(0, Number(limit));
+  }
+  res.status(200).json(sortProducts);
+  // res.send("hello");
 });
 
 app.listen(5003, (req, res) => {
