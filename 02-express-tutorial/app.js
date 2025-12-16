@@ -17,9 +17,22 @@ app.post("/login", (req, res) => {
     return res.status(200).send(`Welcome ${name}`);
   }
 
-  res.status(401).send("Please Provide Credentials");
+  res.status(401).send("Please provide a name");
 });
 
+app.post("/api/people", (req, res) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Please provide a name" });
+  }
+
+  people.push({ id: people.length + 1, name });
+
+  res.status(201).json({ success: true, name });
+});
 app.listen(5003, (req, res) => {
   console.log("Server is listening on port 5003...");
 });
