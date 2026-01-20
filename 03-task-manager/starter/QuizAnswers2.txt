@@ -1,7 +1,9 @@
 1. In this lesson, you created a middleware function called asyncWrapper. Why?
-Answer:
+Answer: In this lesson, I used an async wrapper because it allows me to write error handling logic once in a middleware and reuse it across controllers.
+This way, I avoid repeating try/catch blocks in every method. Write it once and use it for many routes.
 
-2.Suppose that you want to make sure that both a status code and an error message are sent back to the user when they request the URL for a task that does not exist. Assume that you’ve created a CustomAPIError class and an error handler that references that class. Complete the code:
+2.Suppose that you want to make sure that both a status code and an error message are sent back to the user when they request the URL for a task that does not exist.
+Assume that you’ve created a CustomAPIError class and an error handler that references that class. Complete the code:
 Answer:
 
 const getTask = asyncWrapper(async (req, res, next) => {  
@@ -9,6 +11,8 @@ const getTask = asyncWrapper(async (req, res, next) => {
   const task = await Task.findOne({ _id: taskID });  
   if (!task) {  
     // your code here  
-  }  
+    return next(createCustomError(`No task with id : ${taskID}`, 404)); // Correct syntx but don't have on DB
+}; // Correct syntx but don't have on DB
+  
   res.status(200).json({ task });  
 });  
